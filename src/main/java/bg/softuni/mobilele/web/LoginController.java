@@ -1,7 +1,6 @@
 package bg.softuni.mobilele.web;
 
 import bg.softuni.mobilele.model.service.UserLoginServiceModel;
-import bg.softuni.mobilele.security.CurrentUser;
 import bg.softuni.mobilele.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,5 +30,10 @@ public class LoginController {
     }
   }
 
+  @PostMapping("/users/logout")
+  public String logout() {
+    this.userService.logoutCurrentUser();
+    return "redirect:/";
+  }
 
 }
