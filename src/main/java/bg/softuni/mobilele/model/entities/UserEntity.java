@@ -2,6 +2,7 @@ package bg.softuni.mobilele.model.entities;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -15,8 +16,9 @@ public class UserEntity extends BaseEntity {
   private String lastName;
   private boolean isActive;
   private String imageUrl;
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   private List<UserRoleEntity> userRoles;
+
 
   public String getPassword() {
     return password;
