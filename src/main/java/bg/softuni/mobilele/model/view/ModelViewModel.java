@@ -4,11 +4,20 @@ import bg.softuni.mobilele.model.entities.enums.ModelCategoryEnum;
 
 public class ModelViewModel {
 
+  private long id;
   private String name;
   private ModelCategoryEnum category;
   private String imageUrl;
   private int startYear;
   private Integer endYear;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;

@@ -18,27 +18,38 @@
 
 <div class="container">
     <h2 class="text-center text-white">Upload Offer</h2>
-    <form method="POST" 
+    <form method="POST"
+          th:object="${offerModel}"
+          th:action="@{/offers/add}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
-                <label class="text-center text-white font-weight-bold" for="model">Model</label>
-                <select id="model" class="form-control">
+                <label class="text-center text-white font-weight-bold" for="modelId">Model</label>
+                <select id="modelId" name="modelId"
+                        th:errorclass="is-invalid"
+                        class="form-control">
                     <option value="">- Select a model -</option>
-                    <optgroup label="Brand name">
-                        <option>Model</option>
+                    <optgroup th:each="brand : ${brands}"
+                              th:label="${brand.name}"
+                    >
+                        <option th:each="brandModel : ${brand.models}"
+                                th:text="${brandModel.name}"
+                                th:value="${brandModel.id}"
+                                th:selected="${brandModel.id} == *{modelId}"
+                        >
+                        </option>
                     </optgroup>
                 </select>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback">
                     Vechicle model is required.
                 </p>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="price" class="text-white font-weight-bold">Price</label>
-                <input id="price" type="number" min="0" step="100" class="form-control"
+                <input id="price" name="price" th:value="*{price}" th:errorclass="is-invalid" type="number" min="0" step="100" class="form-control"
                        placeholder="Suggested price"/>
-                <p  class="errors alert alert-danger">
+                <p  class="invalid-feedback">
                     Suggested price is required.
                 </p>
             </div>
@@ -46,43 +57,58 @@
         <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="engine">Engine</label>
-                <select id="engine" class="form-control">
+                <select id="engine" name="engine"
+                        th:errorclass="is-invalid"
+                        class="form-control">
                     <option value="">- Select engine type -</option>
-                    <option>
+                    <option th:each="engine : ${engines}"
+                            th:text="${engine}"
+                            th:value="${engine}"
+                            th:selected="${engine} == *{engine}">
                         Engine type
                     </option>
                 </select>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback">
                     Engine type is required.
                 </p>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
-                <select id="transmission" class="form-control">
+                <select id="transmission" name="transmission"
+                        th:errorclass="is-invalid" class="form-control">
                     <option value="">- Select transmission type -</option>
-                    <option> Transmission type
+                    <option th:each="aTransmission : ${transmissions}"
+                            th:value="${aTransmission}"
+                            th:text="${aTransmission}"
+                            th:selected="${aTransmission} == *{transmission}"> Transmission type
                     </option>
                 </select>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback">
                     Transmission type is required.
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
-                <label for="year" class="text-white font-weight-bold">Year</label>
-                <input id="year" type="number" min="1900" max="2099" step="1" class="form-control"
+                <label for="year"
+                       class="text-white font-weight-bold">Year</label>
+                <input id="year" name="year" th:value="*{year}" th:errorclass="is-invalid"
+                       type="number"
+                       class="form-control"
                        placeholder="Manufacturing year"/>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback">
                     Manufacturing year is required.
                 </p>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="mileage" class="text-white font-weight-bold">Mileage</label>
-                <input id="mileage" type="number" min="0" max="900000" step="1000"
+                <input id="mileage" name="mileage"
+                       th:value="*{mileage}"
+                       th:errorclass="is-invalid"
+                       type="number" min="0" max="900000" step="1000"
                        class="form-control"
                        placeholder="Mileage in kilometers"/>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback">
                     Mileage in kilometers is required.
                 </p>
             </div>
@@ -90,17 +116,23 @@
 
         <div class="form-group">
             <label class="text-white font-weight-bold" for="description">Description</label>
-            <textarea id="description" type="textarea" class="form-control" rows="3"
+            <textarea id="description" name="description"
+                      th:text="*{description}"
+                      th:errorclass="is-invalid"
+                      type="textarea" class="form-control" rows="3"
                       placeholder="Description"></textarea>
-            <p class="errors alert alert-danger">
+            <p class="invalid-feedback">
                 Description is required.
             </p>
         </div>
         <div class="form-group">
             <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
-            <input id="imageUrl" type="url" class="form-control"
+            <input id="imageUrl" name="imageUrl"
+                   th:text="*{imageUrl}"
+                   th:errorclass="is-invalid"
+                   type="url" class="form-control"
                    placeholder="Put vehicle image URL here">
-            <p class="errors alert alert-danger">
+            <p class="invalid-feedback">
                 Vehicle image URL is required.
             </p>
         </div>

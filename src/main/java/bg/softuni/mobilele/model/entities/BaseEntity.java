@@ -14,10 +14,10 @@ public class BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Long id;
 
-  @Column(nullable = false)
+  @Column
   protected Instant created;
 
-  @Column(nullable = false)
+  @Column
   protected Instant updated;
 
   public Long getId() {
